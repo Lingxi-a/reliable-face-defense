@@ -1,0 +1,84 @@
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE and system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Environment and credentials
+.env
+.env.*
+!.env.example
+
+# Datasets
+data/
+dataset/
+datasets/
+CelebA/
+CelebA-HQ/
+
+# Model weights and checkpoints
+weights/
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.h5
+*.pkl
+
+# Experiment outputs
+output/
+outputs/
+result/
+results/
+runs/
+logs/
+artifacts/
+generated/
+visualizations/
+reliable_paper_main_v07/
+reliable_paper_v07_nullswap_floor_rerun/
+four_evaluator_supplement_v08/
+reviewer_decisive_experiments_v04/
+aligned_blue_red_ablation_v01/
+
+# Result files
+*.log
+*.jsonl
+*.csv
+*.tsv
+*.npy
+*.npz
+
+# Generated images
+*.png
+*.jpg
+*.jpeg
+*.bmp
+*.webp
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*~
