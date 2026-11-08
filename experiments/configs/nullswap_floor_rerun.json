@@ -1,0 +1,26 @@
+{
+  "experiment_name": "v07_nullswap_floor_candidate_rerun",
+  "baseline_main_dir": "/root/autodl-tmp/reliable_paper_main_v07",
+  "output_dir": "/root/autodl-tmp/reliable_paper_v07_nullswap_floor_rerun",
+  "refinement": {
+    "steps": 32,
+    "step_size_px": 0.25,
+    "residual_budget_px": 2.0,
+    "snapshot_steps": [2, 4, 8, 12, 16, 24, 32],
+    "residual_scales": [0.25, 0.5, 0.75, 1.0],
+    "toward_clean_scales": [0.0, 0.0025, 0.005, 0.01, 0.02],
+    "environments": [
+      "clean",
+      "jpeg_q60",
+      "blur_sigma_1.0",
+      "osn_QW"
+    ],
+    "smoothmax_temperature": 20.0,
+    "min_worst_similarity_gain": 0.0005,
+    "max_condition_regression": 0.0,
+    "max_psnr_drop_db": 0.0,
+    "max_ssim_drop": 0.0,
+    "max_lpips_increase": 0.0
+  }
+}
+

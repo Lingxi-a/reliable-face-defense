@@ -1,0 +1,94 @@
+{
+  "experiment_name": "v07_main_experiment",
+  "seed": 2026,
+  "device": "cuda",
+  "project_root": "/root/autodl-tmp/reliable_face_defense_module05_visualft",
+  "deps_root": "/root/autodl-tmp/FaceDefenseDependencies",
+  "output_dir": "/root/autodl-tmp/reliable_paper_main_v07",
+  "official_split_manifest": "/root/autodl-tmp/nullswap_official_split/split_manifest.json",
+  "hq_mapping": "/root/autodl-tmp/FaceDefenseDependencies/dataset/CelebA-HQ/CelebA-HQ-to-CelebA-mapping.txt",
+  "celeba_identity": "/root/autodl-tmp/FaceDefenseDependencies/dataset/CelebA-HQ/identity_CelebA.txt",
+  "nullswap_checkpoint": "/root/autodl-tmp/nullswap_visualft/checkpoints/nullswap_visualft_epoch26.pt",
+  "source_identities": 200,
+  "targets_per_source": 5,
+  "control_images": 16,
+  "calibration_one_image_per_valid_identity": true,
+  "visual_groups": 70,
+  "save_all_swap_images": false,
+  "methods": [
+    "no_protection",
+    "random_noise",
+    "facepoison",
+    "nullswap",
+    "ours"
+  ],
+  "swap_models": [
+    "simswap",
+    "blendswap",
+    "faceshifter"
+  ],
+  "random_noise_epsilon_px": 8.0,
+  "facepoison_epsilon_px": 8.0,
+  "detection_clean_tpr": 0.99,
+  "identity_far": 0.001,
+  "identity_negative_pairs": 100000,
+  "blue": {
+    "epsilon_grid_px": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "rpp": {
+    "steps": 30,
+    "eta_visual": 0.0001,
+    "rho_repair": 1.0,
+    "xi": 1e-12,
+    "k_repair": 2,
+    "lambda_pix": 1.0,
+    "lambda_lpips": 0.1,
+    "accept_only_if_visual_improves": true
+  },
+  "red": {
+    "pool": "validation",
+    "ema_alpha": 0.8,
+    "top_k": 1,
+    "max_rounds": 4,
+    "stop_when_no_new_constraint": true
+  },
+  "simswap": {
+    "repo_root": "/root/autodl-tmp/simswap/SimSwap",
+    "checkpoints_dir": "/root/autodl-tmp/simswap/checkpoints",
+    "arcface_path": "/root/autodl-tmp/simswap/arcface_model/arcface_checkpoint.tar",
+    "detector_model_path": "/root/autodl-tmp/simswap/SimSwap/insightface_func/models/antelope/scrfd_10g_bnkps.onnx",
+    "detector_fallbacks": [
+      "/root/autodl-tmp/bluered/weights/scrfd_10g_bnkps.onnx",
+      "/root/autodl-tmp/FaceDefenseDependencies/weights/detection/scrfd_10g_bnkps.onnx",
+      "/root/autodl-tmp/simswap/scrfd_10g_bnkps.onnx"
+    ],
+    "crop_size": 224,
+    "det_thresh": 0.2
+  },
+  "blendswap": {
+    "repo_root": "/root/autodl-tmp/v07_external_models/BlendSwap/code",
+    "checkpoint": "/root/autodl-tmp/v07_external_models/BlendSwap/blendswap.pth"
+  },
+  "faceshifter": {
+    "repo_root": "/root/autodl-tmp/v07_external_models/FaceShifter/code",
+    "generator_checkpoint": "/root/autodl-tmp/v07_external_models/FaceShifter/G_latest.pth",
+    "arcface_checkpoint": "/root/autodl-tmp/v07_external_models/FaceShifter/model_ir_se50.pth"
+  },
+  "evaluators": {
+    "vggface": "/root/autodl-tmp/v07_external_models/VGGFace/vgg_face_weights.h5",
+    "sface": "/root/autodl-tmp/v07_external_models/SFace/face_recognition_sface_2021dec.onnx"
+  },
+  "engineering_notes": {
+    "pair_scale": "200 source identities x 5 different-identity targets; fixed engineering scale because v0.7 method text did not prescribe N",
+    "random_noise": "uniform RGB noise in [-8/255,8/255], clipped to [0,1]",
+    "facepoison_baseline": "official FacePoison at the common audited outer budget epsilon=8 pixels",
+    "red_pool": "weaker frozen validation pool selected before the formal run; JPEG/Blur/OSN only; no Resize",
+    "test_evaluators": "VGGFace and SFace are held-out evaluators only"
+  }
+}
